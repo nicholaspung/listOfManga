@@ -1,10 +1,10 @@
 import React from 'react';
 
 const List = props => {
-  console.log(props.post.data)
   return (
     <div>
       {props.post.data.title}
+      <button><a href={props.post.data.url}>Link</a></button>
     </div>
   );
 }

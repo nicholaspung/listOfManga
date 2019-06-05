@@ -20,7 +20,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.redditData)
     return (
       <div className="App">
         <p>Generate Manga List by clicking on button.</p>
