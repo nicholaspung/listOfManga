@@ -1,7 +1,10 @@
 const mangaTitles = [
   "unordinary",
   "Shingeki no Kyojin",
-  "solo leveling"
+  "solo leveling",
+  "Shokugeki no Souma",
+  "Haikyuu",
+  "My Hero Academia"
 ]
 
 export default mangaTitles;
