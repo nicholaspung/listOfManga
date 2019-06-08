@@ -11,7 +11,6 @@ class App extends React.Component {
     filteredData: []
   }
 
-
   componentDidMount() {
     fetch('https://www.reddit.com/r/manga.json')
       .then(res => res.json())
@@ -24,11 +23,13 @@ class App extends React.Component {
     this.setState(prevState => {
       return {
         filteredData: prevState.redditData.filter(post => {
+          let result = '';
           for (let i=0; i<prevState.filter.length; i++) {
             if (post.data.title.includes(this.state.filter[i])) {
-              return true
+              result = true;
             }
           }
+          return result;
         })
       }
     })
