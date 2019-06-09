@@ -13,13 +13,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // fetch('https://www.reddit.com/r/manga.json')
-    //   .then(res => res.json())
-    //   .then(dataObject => this.setState({
-    //     redditData: dataObject.data.children
-    //   }))
-    //   .then(e => this.filterMangaTitle());
-
     this.grabRedditData(this.filterMangaTitle);
   };
 
@@ -39,14 +32,13 @@ class App extends React.Component {
     })
   }
 
-  grabRedditData = (callback = console.log("Refreshing")) => {
+  grabRedditData = (callback = () => console.log("Refreshing")) => {
     fetch('https://www.reddit.com/r/manga.json')
       .then(res => res.json())
       .then(dataObject => this.setState({
         redditData: dataObject.data.children
       }))
       .then(_ => callback());
-    console.log("fetched data")
   }
 
   render() {
