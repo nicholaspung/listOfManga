@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import List from './components/List';
+import FilteredList from './components/FilteredList';
+import RedditList from './components/RedditList';
 
 import mangaTitles from './titles';
 
@@ -12,11 +13,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://www.reddit.com/r/manga.json')
-      .then(res => res.json())
-      .then(dataObject => this.setState({
-        redditData: dataObject.data.children
-      }));
+    // fetch('https://www.reddit.com/r/manga.json')
+    //   .then(res => res.json())
+    //   .then(dataObject => this.setState({
+    //     redditData: dataObject.data.children
+    //   }))
+    //   .then(e => this.filterMangaTitle());
+
+    this.grabRedditData(this.filterMangaTitle);
   };
 
   filterMangaTitle = () => {
@@ -35,15 +39,25 @@ class App extends React.Component {
     })
   }
 
+  grabRedditData = (callback = console.log("Refreshing")) => {
+    fetch('https://www.reddit.com/r/manga.json')
+      .then(res => res.json())
+      .then(dataObject => this.setState({
+        redditData: dataObject.data.children
+      }))
+      .then(_ => callback());
+  }
+
   render() {
     return (
       <div className="App">
         <p>Generate Manga List by clicking on button.</p>
         <button onClick={this.filterMangaTitle}>FILTER LIST</button>
+        {/* <button onClick={this.grabRedditData}>REFRESH REDDIT LIST</button> */} 
         <p>Filtered</p>
-        {this.state.filteredData.map(post => <List post={post} key={post.data.id} />)}
+        <FilteredList filteredData={this.state.filteredData} />
         <p>Not filtered</p>
-        {this.state.redditData.map(post => <List post={post} key={post.data.id} />)}
+        <RedditList redditData={this.state.redditData} />
       </div>
     );
   }

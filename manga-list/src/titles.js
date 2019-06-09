@@ -24,14 +24,15 @@ const mangaTitles = [
   "To You, The Immortal",
   "The Tower of God",
   "Akagami no Shirayukihime",
-  "A Returner's Magic Should Be Special",
+  "A Returner’s Magic Should be Special",
   "Baby Steps",
   "Jujutsu Kaisen",
   "The Wrong Way to use Healing Magic",
   "Act-Age",
   "Dad is a Hero, Mom is a Spirit, I'm a Reincarnator",
   "Heart Gear",
-  "Isekai de Tadahitori No Manono Tsukai ~ Tenshoku Shitara Maou ni Machigawa Remashita"
+  "Isekai de Tadahitori No Manono Tsukai ~ Tenshoku Shitara Maou ni Machigawa Remashita",
+  "Tensei Shitara Slime Datta Ken"
 ]
 
 export default mangaTitles;
