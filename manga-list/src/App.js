@@ -46,6 +46,7 @@ class App extends React.Component {
         redditData: dataObject.data.children
       }))
       .then(_ => callback());
+    console.log("fetched data")
   }
 
   render() {
@@ -53,7 +54,7 @@ class App extends React.Component {
       <div className="App">
         <p>Generate Manga List by clicking on button.</p>
         <button onClick={this.filterMangaTitle}>FILTER LIST</button>
-        {/* <button onClick={this.grabRedditData}>REFRESH REDDIT LIST</button> */} 
+        <button onClick={() => this.grabRedditData(this.filterMangaTitle)}>REFRESH REDDIT LIST</button>
         <p>Filtered</p>
         <FilteredList filteredData={this.state.filteredData} />
         <p>Not filtered</p>
