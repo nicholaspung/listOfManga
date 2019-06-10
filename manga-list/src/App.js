@@ -64,6 +64,17 @@ class App extends React.Component {
     this.setState(prevState => ({ read: [...prevState.read, clicked[0]] }));
   };
 
+  // checkIfAlreadyInRead = (filteredData, read) => {
+  //   let result = [];
+  //   filteredData.forEach(item1 => {
+  //     read.forEach(item2 => {
+  //       if (item2.data.id === item1.data.id) {
+  //         result.push(item1)
+  //       }
+  //     })
+  //   })
+  // }
+
   render() {
     return (
       <div className="App">
