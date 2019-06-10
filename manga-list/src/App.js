@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import FilteredList from './components/FilteredList';
 import RedditList from './components/RedditList';
+import DisplayUptime from './components/DisplayUptime';
 
 import mangaTitles from './titles';
 
@@ -13,7 +14,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.grabRedditData(this.filterMangaTitle);
+    this.grabRedditData(this.filterMangaTitle)
+    setInterval(() => this.grabRedditData(this.filterMangaTitle), 60000);
   };
 
   filterMangaTitle = () => {
@@ -39,13 +41,14 @@ class App extends React.Component {
         redditData: dataObject.data.children
       }))
       .then(_ => callback());
+    console.log("fetching new reddit list");
   }
 
   render() {
     return (
       <div className="App">
+        <DisplayUptime />
         <p>Generate Manga List by clicking on button.</p>
-        <button onClick={this.filterMangaTitle}>FILTER LIST</button>
         <button onClick={() => this.grabRedditData(this.filterMangaTitle)}>REFRESH REDDIT LIST</button>
         <p>Filtered</p>
         <FilteredList filteredData={this.state.filteredData} />

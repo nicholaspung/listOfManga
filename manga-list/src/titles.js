@@ -22,7 +22,7 @@ const mangaTitles = [
   "The Scholar's Reincarnation",
   "Tate no Yuusha no Nariagari",
   "To You, The Immortal",
-  "The Tower of God",
+  "Tower of God",
   "Akagami no Shirayukihime",
   "A Returner’s Magic Should be Special",
   "Baby Steps",
@@ -32,7 +32,9 @@ const mangaTitles = [
   "Dad is a Hero, Mom is a Spirit, I'm a Reincarnator",
   "Heart Gear",
   "Isekai de Tadahitori No Manono Tsukai ~ Tenshoku Shitara Maou ni Machigawa Remashita",
-  "Tensei Shitara Slime Datta Ken"
+  "Tensei Shitara Slime Datta Ken",
+  "Chainsaw Man",
+  "Demon Slayer: Kimetsu no Yaiba"
 ]
 
 export default mangaTitles;
