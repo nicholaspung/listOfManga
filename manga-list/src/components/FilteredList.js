@@ -4,6 +4,7 @@ import List from './List';
 const FilteredList = props => {
   return (
     <div>
+      <p>Filtered</p>
       {props.filteredData.map(post => <List post={post} key={post.data.id} />)}
     </div>
   );
