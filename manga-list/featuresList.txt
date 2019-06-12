@@ -1,0 +1,8 @@
+[] show the list of manga you are filtering
+[] be able to add/delete manga you want to filter
+[] show the date of the title added to your list
+[] show the date of the title read
+[] show the last 2 dates manga title was added to reddit list
+[] toggle either auto-refresh or manual refresh
+[] give an option to save list of manga - make browser download profile data, export lines of manga titles in txt
+[] give an option to load list of manga upload a txt file - txt file is just lines of manga titles

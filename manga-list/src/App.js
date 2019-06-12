@@ -23,22 +23,22 @@ class App extends React.Component {
   }
 
   filterMangaTitle = () => {
-    this.setState(prevState => {
-      return {
-        filteredData: prevState.redditData.filter(post => {
-          let result = "";
-          for (let i = 0; i < prevState.filter.length; i++) {
-            if (post.data.title.includes(this.state.filter[i])) {
-              result = true;
-            }
-          }
-          return result;
-        })
-      };
+    let filteringReddit = this.state.redditData.filter(post => {
+      let result = "";
+      for (let i = 0; i < this.state.filter.length; i++) {
+        if (post.data.title.includes(this.state.filter[i])) {
+          result = true;
+        }
+      }
+      return result;
     });
-    this.setState(prevState => ({
-      unread: prevState.filteredData
-    }));
+    let filteringFilteredReddit = this.checkIfAlreadyInRead(
+      filteringReddit,
+      this.state.read
+    );
+
+    this.setState(prevState => ({ filteredData: filteringReddit }));
+    this.setState(prevState => ({ unread: filteringFilteredReddit }));
   };
 
   grabRedditData = (callback = () => console.log("Refreshing")) => {
@@ -64,16 +64,18 @@ class App extends React.Component {
     this.setState(prevState => ({ read: [...prevState.read, clicked[0]] }));
   };
 
-  // checkIfAlreadyInRead = (filteredData, read) => {
-  //   let result = [];
-  //   filteredData.forEach(item1 => {
-  //     read.forEach(item2 => {
-  //       if (item2.data.id === item1.data.id) {
-  //         result.push(item1)
-  //       }
-  //     })
-  //   })
-  // }
+  checkIfAlreadyInRead = (filteredData, read) => {
+    let result = [];
+    let combinedArrays = filteredData.concat(read);
+
+    combinedArrays.forEach(item => {
+      if (!result.includes(item)) {
+        result.push(item);
+      }
+    });
+
+    return result;
+  };
 
   render() {
     return (
