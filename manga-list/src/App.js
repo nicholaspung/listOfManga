@@ -5,6 +5,7 @@ import RedditList from "./components/RedditList";
 import DisplayUptime from "./components/DisplayUptime";
 import Unread from "./components/Unread";
 import Read from "./components/Read";
+import MySavedTitles from "./components/MySavedTitles";
 
 import mangaTitles from "./titles";
 
@@ -15,14 +16,29 @@ class App extends React.Component {
     filteredData: [],
     unread: [],
     read: [],
-    intervalId: ""
+    intervalId: "",
+    localFilterData: ""
   };
 
   componentDidMount() {
     this.grabRedditData(this.filterMangaTitle);
+    this.setState({
+      localFilterData: localStorage.getItem("titles").split(",")
+    });
     // setInterval(() => this.grabRedditData(this.filterMangaTitle), 60000);
   }
 
+  grabRedditData = callback => {
+    fetch("https://www.reddit.com/r/manga.json")
+      .then(res => res.json())
+      .then(dataObject =>
+        this.setState({
+          redditData: dataObject.data.children
+        })
+      )
+      .then(_ => callback());
+    console.log("fetching new reddit list");
+  };
   filterMangaTitle = () => {
     let filteringReddit = this.state.redditData.filter(post => {
       let result = false;
@@ -39,17 +55,10 @@ class App extends React.Component {
     this.setState(prevState => ({ filteredData: filteringReddit }));
     this.setState(prevState => ({ unread: filteringFilteredReddit }));
   };
-
-  grabRedditData = callback => {
-    fetch("https://www.reddit.com/r/manga.json")
-      .then(res => res.json())
-      .then(dataObject =>
-        this.setState({
-          redditData: dataObject.data.children
-        })
-      )
-      .then(_ => callback());
-    console.log("fetching new reddit list");
+  updateLocalFilterData = () => {
+    this.setState({
+      localFilterData: localStorage.getItem("titles")
+    });
   };
 
   markRead = e => {
@@ -111,6 +120,10 @@ class App extends React.Component {
           />
           <label htmlFor="autorefresh">Toggle Auto-Refresh</label>
         </div>
+        <MySavedTitles
+          mangaList={this.state.localFilterData}
+          updateLocalFilterData={this.updateLocalFilterData}
+        />
         <Unread unread={this.state.unread} handleClick={this.markRead} />
         <Read read={this.state.read} />
         <FilteredList filteredData={this.state.filteredData} />
