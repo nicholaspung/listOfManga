@@ -14,12 +14,13 @@ class App extends React.Component {
     filter: mangaTitles,
     filteredData: [],
     unread: [],
-    read: []
+    read: [],
+    intervalId: ""
   };
 
   componentDidMount() {
     this.grabRedditData(this.filterMangaTitle);
-    setInterval(() => this.grabRedditData(this.filterMangaTitle), 60000);
+    // setInterval(() => this.grabRedditData(this.filterMangaTitle), 60000);
   }
 
   filterMangaTitle = () => {
@@ -77,6 +78,24 @@ class App extends React.Component {
     return result;
   };
 
+  toggleAutoRefresh = e => {
+    let checked = e.target.checked;
+    let intervalId;
+    const startRefresh = () => {
+      intervalId = setInterval(
+        () => this.grabRedditData(this.filterMangaTitle),
+        60000
+      );
+      this.setState(() => ({ intervalId: intervalId }));
+    };
+
+    const stopRefresh = () => {
+      clearInterval(this.state.intervalId);
+    };
+
+    checked ? startRefresh() : stopRefresh();
+  };
+
   render() {
     return (
       <div className="App">
@@ -84,6 +103,14 @@ class App extends React.Component {
         <button onClick={() => this.grabRedditData(this.filterMangaTitle)}>
           REFRESH REDDIT LIST
         </button>
+        <div>
+          <input
+            type="checkbox"
+            name="autorefresh"
+            onClick={this.toggleAutoRefresh}
+          />
+          <label htmlFor="autorefresh">Toggle Auto-Refresh</label>
+        </div>
         <Unread unread={this.state.unread} handleClick={this.markRead} />
         <Read read={this.state.read} />
         <FilteredList filteredData={this.state.filteredData} />
