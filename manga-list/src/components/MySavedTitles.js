@@ -3,13 +3,14 @@ import Form from "./Form";
 import Title from "./Title";
 
 const MySavedTitles = props => {
-  console.log(props.mangaList);
-  props.mangaList.forEach(item => console.log(item));
-  // TypeError: props.mangaList.forEach is not a function
+  let arr = Array.from(props.mangaList);
   return (
     <div>
       <p>My Saved Titles</p>
       <Form updateLocalFilterData={props.updateLocalFilterData} />
+      {arr.map(item => (
+        <Title title={item} />
+      ))}
     </div>
   );
 };
