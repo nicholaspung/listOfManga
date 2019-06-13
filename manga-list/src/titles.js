@@ -1,7 +1,7 @@
 const mangaTitles = [
-  "unordinary",
+  "UnOrdinary",
   "Shingeki no Kyojin",
-  "solo leveling",
+  "Solo Leveling",
   "Shokugeki no Souma",
   "Haikyuu",
   "My Hero Academia",
@@ -35,6 +35,6 @@ const mangaTitles = [
   "Tensei Shitara Slime Datta Ken",
   "Chainsaw Man",
   "Demon Slayer: Kimetsu no Yaiba"
-]
+];
 
 export default mangaTitles;

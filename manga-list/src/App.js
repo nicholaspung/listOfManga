@@ -24,12 +24,10 @@ class App extends React.Component {
 
   filterMangaTitle = () => {
     let filteringReddit = this.state.redditData.filter(post => {
-      let result = "";
-      for (let i = 0; i < this.state.filter.length; i++) {
-        if (post.data.title.includes(this.state.filter[i])) {
-          result = true;
-        }
-      }
+      let result = false;
+      this.state.filter.forEach(title => {
+        if (post.data.title.includes(title)) result = true;
+      });
       return result;
     });
     let filteringFilteredReddit = this.checkIfAlreadyInRead(
@@ -41,7 +39,7 @@ class App extends React.Component {
     this.setState(prevState => ({ unread: filteringFilteredReddit }));
   };
 
-  grabRedditData = (callback = () => console.log("Refreshing")) => {
+  grabRedditData = callback => {
     fetch("https://www.reddit.com/r/manga.json")
       .then(res => res.json())
       .then(dataObject =>
@@ -65,12 +63,14 @@ class App extends React.Component {
   };
 
   checkIfAlreadyInRead = (filteredData, read) => {
+    let readIds = read.map(title => title.data.id);
     let result = [];
     let combinedArrays = filteredData.concat(read);
 
     combinedArrays.forEach(item => {
-      if (!result.includes(item)) {
+      if (!readIds.includes(item.data.id)) {
         result.push(item);
+        readIds.push(item.data.id);
       }
     });
 
