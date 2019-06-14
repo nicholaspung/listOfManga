@@ -25,7 +25,6 @@ class App extends React.Component {
     this.setState({
       localFilterData: localStorage.getItem("titles").split(",")
     });
-    // setInterval(() => this.grabRedditData(this.filterMangaTitle), 60000);
   }
 
   grabRedditData = callback => {
@@ -71,7 +70,6 @@ class App extends React.Component {
     this.setState(prevState => ({ unread: unclicked }));
     this.setState(prevState => ({ read: [...prevState.read, clicked[0]] }));
   };
-
   checkIfAlreadyInRead = (filteredData, read) => {
     let readIds = read.map(title => title.data.id);
     let result = [];
@@ -85,6 +83,10 @@ class App extends React.Component {
     });
 
     return result;
+  };
+
+  removeFromLocalStorage = e => {
+    console.log(e);
   };
 
   toggleAutoRefresh = e => {
@@ -123,6 +125,7 @@ class App extends React.Component {
         <MySavedTitles
           mangaList={this.state.localFilterData}
           updateLocalFilterData={this.updateLocalFilterData}
+          removeFromLocalStorage={this.removeFromLocalStorage}
         />
         <Unread unread={this.state.unread} handleClick={this.markRead} />
         <Read read={this.state.read} />

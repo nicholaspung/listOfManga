@@ -3,7 +3,8 @@ import React from "react";
 const Title = props => {
   return (
     <div>
-      <p>{props.title}</p>
+      {props.title}
+      <button onClick={props.removeFromLocalStorage}>x</button>
     </div>
   );
 };

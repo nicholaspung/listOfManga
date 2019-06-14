@@ -9,7 +9,11 @@ const MySavedTitles = props => {
       <p>My Saved Titles</p>
       <Form updateLocalFilterData={props.updateLocalFilterData} />
       {arr.map(item => (
-        <Title title={item} />
+        <Title
+          title={item}
+          key={item}
+          removeFromLocalStorage={props.removeFromLocalStorage}
+        />
       ))}
     </div>
   );
