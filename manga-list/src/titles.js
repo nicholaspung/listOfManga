@@ -34,7 +34,8 @@ const mangaTitles = [
   "Isekai de Tadahitori No Manono Tsukai ~ Tenshoku Shitara Maou ni Machigawa Remashita",
   "Tensei Shitara Slime Datta Ken",
   "Chainsaw Man",
-  "Demon Slayer: Kimetsu no Yaiba"
+  "Demon Slayer: Kimetsu no Yaiba",
+  "One-Punch Man"
 ];
 
 export default mangaTitles;

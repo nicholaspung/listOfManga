@@ -7,7 +7,7 @@ const ListWithButton = props => {
   }
 
   return (
-    <div>
+    <div className="titles">
       {props.post.data.title}
       <button>
         <a href={url}>Link</a>

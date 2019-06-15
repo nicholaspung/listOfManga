@@ -16,7 +16,7 @@ const List = props => {
   title = replaceAmpersand(title);
 
   return (
-    <div>
+    <div className="titles">
       {title}
       <button>
         <a href={url}>Link</a>

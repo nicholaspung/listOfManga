@@ -1,13 +1,15 @@
-import React from 'react';
-import List from './List';
+import React from "react";
+import List from "./List";
 
 const FilteredList = props => {
   return (
-    <div>
-      <p>Filtered</p>
-      {props.filteredData.map(post => <List post={post} key={post.data.id} />)}
+    <div className="filtered-list">
+      <h3>Filtered</h3>
+      {props.filteredData.map(post => (
+        <List post={post} key={post.data.id} />
+      ))}
     </div>
   );
-}
+};
 
 export default FilteredList;

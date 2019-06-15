@@ -17,7 +17,7 @@ class App extends React.Component {
     unread: [],
     read: [],
     intervalId: "",
-    localFilterData: ""
+    localFilterData: []
   };
 
   componentDidMount() {
@@ -27,7 +27,7 @@ class App extends React.Component {
     });
   }
 
-  grabRedditData = callback => {
+  grabRedditData = filterFunction => {
     fetch("https://www.reddit.com/r/manga.json")
       .then(res => res.json())
       .then(dataObject =>
@@ -35,13 +35,14 @@ class App extends React.Component {
           redditData: dataObject.data.children
         })
       )
-      .then(_ => callback());
+      .then(_ => filterFunction(this.state.localFilterData));
     console.log("fetching new reddit list");
   };
-  filterMangaTitle = () => {
+  // can improve filter by making fuzzy filtering (like fuzzy searches)
+  filterMangaTitle = filterList => {
     let filteringReddit = this.state.redditData.filter(post => {
       let result = false;
-      this.state.filter.forEach(title => {
+      filterList.forEach(title => {
         if (post.data.title.includes(title)) result = true;
       });
       return result;
@@ -55,9 +56,26 @@ class App extends React.Component {
     this.setState(prevState => ({ unread: filteringFilteredReddit }));
   };
   updateLocalFilterData = () => {
-    this.setState({
-      localFilterData: localStorage.getItem("titles")
-    });
+    let filteredData = localStorage.getItem("titles").split(",");
+    this.setState(prevState => ({
+      localFilterData: filteredData
+    }));
+    this.filterMangaTitle(filteredData);
+  };
+  // doesn't remove title from saved data - bug
+  removeFromLocalStorage = title => {
+    let removeTitleFromFilterList = this.state.localFilterData.filter(
+      e => e !== title
+    );
+    let removeTitleFromReadList = this.state.read.filter(e => e !== title);
+    this.setState(prevState => ({
+      localFilterData: removeTitleFromFilterList
+    }));
+    this.setState(prevState => ({
+      read: removeTitleFromReadList
+    }));
+    localStorage.setItem("titles", removeTitleFromFilterList);
+    this.filterMangaTitle(removeTitleFromFilterList);
   };
 
   markRead = e => {
@@ -70,10 +88,10 @@ class App extends React.Component {
     this.setState(prevState => ({ unread: unclicked }));
     this.setState(prevState => ({ read: [...prevState.read, clicked[0]] }));
   };
-  checkIfAlreadyInRead = (filteredData, read) => {
+  checkIfAlreadyInRead = (filteredObjectData, read) => {
     let readIds = read.map(title => title.data.id);
     let result = [];
-    let combinedArrays = filteredData.concat(read);
+    let combinedArrays = filteredObjectData.concat(read);
 
     combinedArrays.forEach(item => {
       if (!readIds.includes(item.data.id)) {
@@ -83,10 +101,6 @@ class App extends React.Component {
     });
 
     return result;
-  };
-
-  removeFromLocalStorage = e => {
-    console.log(e);
   };
 
   toggleAutoRefresh = e => {
@@ -110,27 +124,33 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <DisplayUptime />
-        <button onClick={() => this.grabRedditData(this.filterMangaTitle)}>
-          REFRESH REDDIT LIST
-        </button>
-        <div>
-          <input
-            type="checkbox"
-            name="autorefresh"
-            onClick={this.toggleAutoRefresh}
-          />
-          <label htmlFor="autorefresh">Toggle Auto-Refresh</label>
+        <div className="uptime">
+          <DisplayUptime />
+          <button onClick={() => this.grabRedditData(this.filterMangaTitle)}>
+            REFRESH REDDIT LIST
+          </button>
+          <div>
+            <input
+              type="checkbox"
+              name="autorefresh"
+              onClick={this.toggleAutoRefresh}
+            />
+            <label htmlFor="autorefresh">Toggle Auto-Refresh</label>
+          </div>
         </div>
-        <MySavedTitles
-          mangaList={this.state.localFilterData}
-          updateLocalFilterData={this.updateLocalFilterData}
-          removeFromLocalStorage={this.removeFromLocalStorage}
-        />
-        <Unread unread={this.state.unread} handleClick={this.markRead} />
-        <Read read={this.state.read} />
-        <FilteredList filteredData={this.state.filteredData} />
-        <RedditList redditData={this.state.redditData} />
+        <div className="list">
+          <MySavedTitles
+            mangaList={this.state.localFilterData}
+            updateLocalFilterData={this.updateLocalFilterData}
+            removeFromLocalStorage={this.removeFromLocalStorage}
+          />
+          <div className="read-unread">
+            <Unread unread={this.state.unread} handleClick={this.markRead} />
+            <Read read={this.state.read} />
+          </div>
+          <FilteredList filteredData={this.state.filteredData} />
+          <RedditList redditData={this.state.redditData} />
+        </div>
       </div>
     );
   }

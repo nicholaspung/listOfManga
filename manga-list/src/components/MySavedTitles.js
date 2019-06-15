@@ -5,8 +5,8 @@ import Title from "./Title";
 const MySavedTitles = props => {
   let arr = Array.from(props.mangaList);
   return (
-    <div>
-      <p>My Saved Titles</p>
+    <div className="my-saved-titles">
+      <h3>My Saved Titles</h3>
       <Form updateLocalFilterData={props.updateLocalFilterData} />
       {arr.map(item => (
         <Title

@@ -2,9 +2,11 @@ import React from "react";
 
 const Title = props => {
   return (
-    <div>
+    <div className="titles">
       {props.title}
-      <button onClick={props.removeFromLocalStorage}>x</button>
+      <button onClick={() => props.removeFromLocalStorage(props.title)}>
+        x
+      </button>
     </div>
   );
 };

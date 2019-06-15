@@ -4,7 +4,7 @@ import ListWithButton from "./ListWithButton";
 const Unread = props => {
   return (
     <div>
-      <p>Unread</p>
+      <h3>Unread</h3>
       {props.unread.map(post => (
         <ListWithButton
           post={post}
