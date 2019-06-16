@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/listOfManga/static/css/main.1ea15fd7.chunk.css",
+    "main.js": "/listOfManga/static/js/main.40f86376.chunk.js",
+    "main.js.map": "/listOfManga/static/js/main.40f86376.chunk.js.map",
+    "runtime~main.js": "/listOfManga/static/js/runtime~main.b72a1a18.js",
+    "runtime~main.js.map": "/listOfManga/static/js/runtime~main.b72a1a18.js.map",
+    "static/js/2.a5adb38c.chunk.js": "/listOfManga/static/js/2.a5adb38c.chunk.js",
+    "static/js/2.a5adb38c.chunk.js.map": "/listOfManga/static/js/2.a5adb38c.chunk.js.map",
+    "index.html": "/listOfManga/index.html",
+    "precache-manifest.b904f90725cd1464f84703d912bde3f0.js": "/listOfManga/precache-manifest.b904f90725cd1464f84703d912bde3f0.js",
+    "service-worker.js": "/listOfManga/service-worker.js",
+    "static/css/main.1ea15fd7.chunk.css.map": "/listOfManga/static/css/main.1ea15fd7.chunk.css.map"
+  }
+}
