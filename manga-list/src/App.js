@@ -108,6 +108,10 @@ class App extends React.Component {
     localStorage.setItem("titles", removeTitleFromFilterList);
     this.filterMangaTitle(removeTitleFromFilterList);
   };
+  clearLocalStorage = e => {
+    localStorage.removeItem("read");
+    this.setState({ read: [] });
+  };
 
   markRead = e => {
     let unclicked = this.state.unread.filter(
@@ -116,8 +120,16 @@ class App extends React.Component {
     let clicked = this.state.unread.filter(
       item => item.data.id === e.target.value
     );
+
     this.setState(prevState => ({ unread: unclicked }));
-    this.setState(prevState => ({ read: [...prevState.read, clicked[0]] }));
+
+    if (this.state.read.length > 8) {
+      let readVar = this.state.read;
+      readVar.shift();
+      this.setState(prevState => ({ read: [...readVar, clicked[0]] }));
+    } else {
+      this.setState(prevState => ({ read: [...prevState.read, clicked[0]] }));
+    }
   };
   checkIfAlreadyInRead = (filteredObjectData, read) => {
     let readIds = read.map(title => title.data.id);
@@ -177,7 +189,10 @@ class App extends React.Component {
           />
           <div className="read-unread">
             <Unread unread={this.state.unread} handleClick={this.markRead} />
-            <Read read={this.state.read} />
+            <Read
+              read={this.state.read}
+              clearLocalStorage={this.clearLocalStorage}
+            />
           </div>
           <FilteredList filteredData={this.state.filteredData} />
           <RedditList redditData={this.state.redditData} />
