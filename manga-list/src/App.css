@@ -28,21 +28,29 @@ p:nth-child(even) {
 .my-saved-titles {
   border: 1px solid red;
   width: 22%;
+  height: 100%;
+  overflow: auto;
 }
 
 .read-unread {
   border: 1px solid purple;
   width: 22%;
+  height: 100%;
+  overflow: auto;
 }
 
 .filtered-list {
   border: 1px solid blue;
   width: 22%;
+  height: 100%;
+  overflow: auto;
 }
 
 .reddit-list {
   border: 1px solid green;
   width: 22%;
+  height: 100%;
+  overflow: auto;
 }
 
 .titles:nth-child(even) {
