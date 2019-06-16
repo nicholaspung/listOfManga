@@ -22,9 +22,40 @@ class App extends React.Component {
 
   componentDidMount() {
     this.grabRedditData(this.filterMangaTitle);
-    this.setState({
+    this.setState(prevState => ({
       localFilterData: localStorage.getItem("titles").split(",")
-    });
+    }));
+
+    if (JSON.parse(localStorage.getItem("unread"))) {
+      this.setState(prevState => ({
+        unread: JSON.parse(localStorage.getItem("unread"))
+      }));
+    }
+    if (JSON.parse(localStorage.getItem("read"))) {
+      this.setState(prevState => ({
+        read: JSON.parse(localStorage.getItem("read"))
+      }));
+    }
+
+    window.addEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+
+    this.saveStateToLocalStorage();
+  }
+
+  saveStateToLocalStorage() {
+    localStorage.setItem("titles", this.state.localFilterData);
+    localStorage.setItem("unread", JSON.stringify(this.state.unread));
+    localStorage.setItem("read", JSON.stringify(this.state.read));
   }
 
   grabRedditData = filterFunction => {
